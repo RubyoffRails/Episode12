@@ -1,0 +1,23 @@
+compare Minitest / Rspec / Test::Unit
+
+Rspec --> should
+
+  object.method.should_not(`o)
+
+
+Test::Unit
+
+  assert_equal true, object.method
+
+MiniTest --> 1.9
+
+should / assert
+
+
+App 2 Ways:
+
+Admirals, he has battleship
+
+Battleship fires / decreases ammunition  [value expectation]
+Admiral can tell the battleship to fire [message expecation]
+
