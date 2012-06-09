@@ -18,4 +18,8 @@ class Battleship
   def fire!
     @ammunition = @ammunition - 1
   end
+
+  def reload
+	@ammunition += 100
+  end
 end
