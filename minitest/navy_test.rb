@@ -1,3 +1,4 @@
+gem 'minitest'
 require_relative "navy"
 require "minitest/autorun"
 require "minitest/mock"
