@@ -1,5 +1,5 @@
 require 'test/unit'
-require_relative "navy"
+require "navy"
 
 class BattleshipTest < Test::Unit::TestCase
   def test_ammunition_usage

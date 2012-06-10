@@ -9,6 +9,13 @@ class Admiral
 
 end
 
+module Fate
+	def self.result
+		shot = rand(2).round
+		shot == 0 ? :miss : :hit
+	end
+end
+
 class Battleship
   attr_reader :ammunition
   def initialize
@@ -16,7 +23,14 @@ class Battleship
   end
 
   def fire!
-    @ammunition = @ammunition - 1
+    if @ammunition > 0
+      @ammunition -= 1
+      Fate.result
+    else
+      # This could raise an exception, but for the moment, if you have
+      # no ammo, you miss.
+      return :miss
+    end
   end
 
   def reload

@@ -1,4 +1,4 @@
-require_relative "navy"
+require "navy"
 require "rspec"
 
 describe Admiral do
@@ -7,7 +7,7 @@ describe Admiral do
 
   it "can tell the battleship to fire" do
     battleship.should_receive(:fire!)
-    subject.fire_on_target
+    subject.fire_upon_target
   end
 end
 
