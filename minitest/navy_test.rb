@@ -14,7 +14,12 @@ class TestAdmiral < MiniTest::Unit::TestCase
     @admiral.fire_upon_target
     @battleship.verify
   end
-end
+  def test_total_number_of_battleships
+    battleship = Battleship.new
+	total_ships = battleship.total
+	assert_equal (total_ships 1), battleship.total
+  end
+  end
 
 class TestBattleship< MiniTest::Unit::TestCase
   def test_will_decrease_ammunition_when_firing
@@ -33,3 +38,11 @@ describe Battleship do
     battleship.ammunition.must_equal (starting_ammunition -1)
   end
 end
+#describe Admiral do
+ # it "should have 1 battleship" do
+  # battleship = Battleship.new
+  # total_ships = battleship.total
+  # battleship.ships.must_equal (1)
+  #end
+ #end
+
