@@ -3,7 +3,6 @@ require "minitest/autorun"
 require "minitest/mock"
 
 class TestAdmiral < MiniTest::Unit::TestCase
-
   def setup
     @battleship = MiniTest::Mock.new
     @admiral = Admiral.new(@battleship)
@@ -14,14 +13,25 @@ class TestAdmiral < MiniTest::Unit::TestCase
     @admiral.fire_upon_target
     @battleship.verify
   end
+
+  def test_has_battleship
+    assert_respond_to @admiral, :battleship
+  end
 end
 
 class TestBattleship< MiniTest::Unit::TestCase
+  def setup
+    @battleship = Battleship.new
+  end
+
+  def test_ammo_count_starts_at_10
+    assert_equal 10, @battleship.ammunition
+  end
+
   def test_will_decrease_ammunition_when_firing
-    battleship = Battleship.new
-    starting_ammunition = battleship.ammunition
-    battleship.fire!
-    assert_equal (starting_ammunition - 1), battleship.ammunition
+    starting_ammunition = @battleship.ammunition
+    @battleship.fire!
+    assert_equal (starting_ammunition - 1), @battleship.ammunition
   end
 end
 
