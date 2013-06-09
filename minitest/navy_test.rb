@@ -22,7 +22,8 @@ end
 
 class TestBattleship< MiniTest::Unit::TestCase
   def setup
-    @battleship = Battleship.new
+    @armory = MiniTest::Mock.new
+    @battleship = Battleship.new(@armory)
     @starting_ammunition = @battleship.ammunition
   end
 
@@ -36,11 +37,56 @@ class TestBattleship< MiniTest::Unit::TestCase
   end
 end
 
-#describe Battleship do
-#  it "should decrease ammo" do
-#    battleship = Battleship.new
-#    starting_ammunition = battleship.ammunition
-#    battleship.fire!
-#    battleship.ammunition.must_equal (starting_ammunition -1)
-#  end
-#end
+describe Battleship do
+
+  it "should decrease ammo" do
+    mock_armory = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory)
+    starting_ammo = ship.ammunition
+    ship.fire!
+    ship.ammunition.must_equal (starting_ammo - 1)
+  end
+
+  it "can request more ammo" do
+    mock_armory = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory)
+
+    mock_armory.expect(:request_ammunition, 10, [Integer])
+    while ship.ammunition >= 2
+      ship.fire!
+    end
+    ship.fire!
+    mock_armory.verify
+  end
+
+  it "should recieve more ammo" do
+    mock_armory = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory)
+
+    mock_armory.expect(:request_ammunition, 10, [Integer])
+    starting_ammo = ship.ammunition
+    ship.reload!
+    ship.ammunition.must_equal (starting_ammo + 10)
+  end
+
+end
+
+describe Armory do
+  
+  subject { Armory.new(100) }
+
+  it "should have reserve ammunition" do
+    subject.ammunition_reserves.must_equal(100)
+  end
+
+  it "should provide ammunition if it has enough" do
+    ammo = subject.request_ammunition(10)
+    ammo.must_equal 10
+  end
+
+  it "should provide partial ammunition if it doesn't have enough" do
+    available = subject.ammunition_reserves
+    ammo = subject.request_ammunition(available + 10)
+    ammo.must_equal available
+  end
+end
