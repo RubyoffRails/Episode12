@@ -12,15 +12,17 @@ class Admiral
 end
 
 class Battleship
-  attr_reader :ammunition, :armory
-  def initialize(armory)
+  attr_reader :ammunition, :armory, :fate
+  def initialize(armory, fate)
     @ammunition = 10
     @armory = armory
+    @fate = fate
   end
 
   def fire!
     @ammunition = @ammunition - 1
     reload! if @ammunition == 0
+    fate.report
   end
 
   def reload!
@@ -46,4 +48,15 @@ class Armory
     end
   end
   
+end
+
+class Fate 
+
+  def initialize(randomizer=Random)
+    @randomizer = randomizer
+  end
+
+  def report
+    @randomizer.rand(11).even?
+  end
 end

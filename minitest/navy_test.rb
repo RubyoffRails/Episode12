@@ -23,7 +23,8 @@ end
 class TestBattleship< MiniTest::Unit::TestCase
   def setup
     @armory = MiniTest::Mock.new
-    @battleship = Battleship.new(@armory)
+    @fate = MiniTest::Mock.new
+    @battleship = Battleship.new(@armory, @fate)
     @starting_ammunition = @battleship.ammunition
   end
 
@@ -32,8 +33,9 @@ class TestBattleship< MiniTest::Unit::TestCase
   end
 
   def test_will_decrease_ammunition_when_firing
+    @fate.expect(:report, true)
     @battleship.fire!
-    assert_equal (@starting_ammunition - 1), @battleship.ammunition
+    assert_equal @starting_ammunition - 1, @battleship.ammunition
   end
 end
 
@@ -41,16 +43,21 @@ describe Battleship do
 
   it "should decrease ammo" do
     mock_armory = MiniTest::Mock.new
-    ship = Battleship.new(mock_armory)
+    mock_fate = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory, mock_fate)
+
+    mock_fate.expect(:report, true)
     starting_ammo = ship.ammunition
     ship.fire!
-    ship.ammunition.must_equal (starting_ammo - 1)
+    ship.ammunition.must_equal(starting_ammo - 1)
   end
 
   it "can request more ammo" do
     mock_armory = MiniTest::Mock.new
-    ship = Battleship.new(mock_armory)
+    mock_fate = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory, mock_fate)
 
+    mock_fate.expect(:report, true)
     mock_armory.expect(:request_ammunition, 10, [Integer])
     while ship.ammunition >= 2
       ship.fire!
@@ -61,12 +68,23 @@ describe Battleship do
 
   it "should recieve more ammo" do
     mock_armory = MiniTest::Mock.new
-    ship = Battleship.new(mock_armory)
+    mock_fate = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory, mock_fate)
 
+    mock_fate.expect(:report, true)
     mock_armory.expect(:request_ammunition, 10, [Integer])
     starting_ammo = ship.ammunition
     ship.reload!
-    ship.ammunition.must_equal (starting_ammo + 10)
+    ship.ammunition.must_equal(starting_ammo + 10)
+  end
+
+  it "should know if there was a hit or miss after firing" do
+    mock_armory = MiniTest::Mock.new
+    mock_fate = MiniTest::Mock.new
+    ship = Battleship.new(mock_armory, mock_fate)
+
+    mock_fate.expect(:report, true)
+    ship.fire!.must_equal(true)
   end
 
 end
@@ -80,13 +98,28 @@ describe Armory do
   end
 
   it "should provide ammunition if it has enough" do
-    ammo = subject.request_ammunition(10)
-    ammo.must_equal 10
+    subject.request_ammunition(10).must_equal 10
   end
 
   it "should provide partial ammunition if it doesn't have enough" do
     available = subject.ammunition_reserves
-    ammo = subject.request_ammunition(available + 10)
-    ammo.must_equal available
+    subject.request_ammunition(available + 10).must_equal available
+  end
+end
+
+describe Fate do
+
+  it "should return true if rand is even" do
+    mock_rand = MiniTest::Mock.new
+    fate = Fate.new(mock_rand)
+    mock_rand.expect(:rand, 6, [Integer])
+    fate.report.must_equal true
+  end
+
+  it "should return false if rand is odd" do
+    mock_rand = MiniTest::Mock.new
+    fate = Fate.new(mock_rand)
+    mock_rand.expect(:rand, 5, [Integer])
+    fate.report.must_equal false
   end
 end
