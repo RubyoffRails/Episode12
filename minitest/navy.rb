@@ -1,4 +1,5 @@
 class Admiral
+  attr_reader :battleship
   def initialize(battleship)
     @battleship = battleship
   end

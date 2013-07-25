@@ -9,6 +9,10 @@ describe Admiral do
     battleship.should_receive(:fire!)
     subject.fire_on_target
   end
+  
+  it "has a battleship" do
+    subject.battleship.should eq(battleship)
+  end
 end
 
 describe Battleship do

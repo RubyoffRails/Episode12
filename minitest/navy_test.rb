@@ -8,6 +8,12 @@ class TestAdmiral < MiniTest::Unit::TestCase
     @battleship = MiniTest::Mock.new
     @admiral = Admiral.new(@battleship)
   end
+  
+  def test_confirming_admiral_has_battleship
+    battleship = Battleship.new
+    admiral = Admiral.new(battleship)
+    assert_equal admiral.battleship, battleship
+  end
 
   def test_can_tell_the_battleship_to_fire
     @battleship.expect :fire!, nil
