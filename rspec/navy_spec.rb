@@ -21,4 +21,8 @@ describe Battleship do
       subject.fire!
     }.to change(subject, :ammunition).by(-1)
   end
+  
+  it "should start with 10 ammo" do
+    subject.ammunition.should eq(10)
+  end
 end

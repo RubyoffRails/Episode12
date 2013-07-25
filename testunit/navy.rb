@@ -1,7 +1,7 @@
 class Battleship
   attr_reader :ammunition
   def initialize
-    @ammunition = 100
+    @ammunition = 10
   end
 
   def fire!

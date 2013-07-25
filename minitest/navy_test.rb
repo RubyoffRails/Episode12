@@ -29,6 +29,11 @@ class TestBattleship< MiniTest::Unit::TestCase
     battleship.fire!
     assert_equal (starting_ammunition - 1), battleship.ammunition
   end
+  
+  def test_battleship_starts_with_10_ammo
+    battleship = Battleship.new
+    assert_equal 10, battleship.ammunition
+  end
 end
 
 describe Battleship do
