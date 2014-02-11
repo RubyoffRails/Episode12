@@ -7,15 +7,23 @@ class Admiral
     @battleship.fire!
   end
 
+  def has_a_ship?
+    true
+  end
+
 end
 
 class Battleship
-  attr_reader :ammunition
+  attr_accessor :ammunition
   def initialize
-    @ammunition = 100
+    @ammunition = 10
   end
 
   def fire!
     @ammunition = @ammunition - 1
+  end
+
+  def more_ammo!(extra_ammunition)
+    @ammunition += extra_ammunition
   end
 end

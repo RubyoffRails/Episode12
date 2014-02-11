@@ -7,6 +7,8 @@ class TestAdmiral < MiniTest::Unit::TestCase
   def setup
     @battleship = MiniTest::Mock.new
     @admiral = Admiral.new(@battleship)
+    @another_battleship = Battleship.new
+    @another_admiral = Admiral.new(@another_battleship)
   end
 
   def test_can_tell_the_battleship_to_fire
@@ -14,14 +16,28 @@ class TestAdmiral < MiniTest::Unit::TestCase
     @admiral.fire_upon_target
     @battleship.verify
   end
+
+  def test_have_a_battleship
+    assert_equal true, @another_admiral.has_a_ship?
+  end
 end
 
 class TestBattleship< MiniTest::Unit::TestCase
+
+  def setup
+    @battleship = Battleship.new
+    @starting_ammunition = @battleship.ammunition
+  end
+
   def test_will_decrease_ammunition_when_firing
-    battleship = Battleship.new
-    starting_ammunition = battleship.ammunition
-    battleship.fire!
-    assert_equal (starting_ammunition - 1), battleship.ammunition
+    @battleship.fire!
+    assert_equal (@starting_ammunition - 1), @battleship.ammunition
+  end
+
+  def test_can_request_more_ammunition
+    extra_ammunition = 10
+    @battleship.more_ammo!(extra_ammunition)
+    assert_equal (@starting_ammunition + extra_ammunition), @battleship.ammunition
   end
 end
 
