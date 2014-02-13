@@ -47,6 +47,12 @@ class TestBattleship< MiniTest::Unit::TestCase
     assert_equal (@starting_ammunition + extra_ammunition), @battleship.ammunition
   end
 
+  def test_hit_or_miss
+    @mock_battleship.expect :fire!, [Fate::FATE]
+    @mock_battleship.fire!
+    @mock_battleship.verify
+  end
+
 end
 
 describe Battleship do
