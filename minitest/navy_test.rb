@@ -48,7 +48,7 @@ class TestBattleship< MiniTest::Unit::TestCase
   end
 
   def test_hit_or_miss
-    @mock_battleship.expect :fire!, [Fate::FATE]
+    @mock_battleship.expect :fire!, [true, false]
     @mock_battleship.fire!
     @mock_battleship.verify
   end

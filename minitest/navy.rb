@@ -14,11 +14,12 @@ end
 
 
 module Fate
-    FATE = def hit_or_miss
+  class Fate
+    def hit_or_miss
       result = rand(5)+1
-      return true if result.even?
-      return false if result.odd?
+      result.even?
     end
+  end
 end
 
 class Battleship
@@ -30,7 +31,7 @@ class Battleship
   end
 
   def fire!
-    @hit = hit_or_miss
+    @hit = Fate.new.hit_or_miss
     @ammunition = @ammunition - 1
   end
 
