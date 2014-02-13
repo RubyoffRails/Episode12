@@ -47,10 +47,6 @@ class TestBattleship< MiniTest::Unit::TestCase
     assert_equal (@starting_ammunition + extra_ammunition), @battleship.ammunition
   end
 
-    def test_skip_to_my_loo
-      skip("reason for skipping the test")
-  end
-
 end
 
 describe Battleship do

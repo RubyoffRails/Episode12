@@ -23,7 +23,7 @@ class Battleship
     @ammunition = @ammunition - 1
   end
 
-  def more_ammo!(extra_ammunition)
+  def reload!(extra_ammunition)
     @ammunition += extra_ammunition
   end
 end
