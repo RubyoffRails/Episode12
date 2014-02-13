@@ -25,6 +25,7 @@ end
 class TestBattleship< MiniTest::Unit::TestCase
 
   def setup
+    @mock_battleship = MiniTest::Mock.new
     @battleship = Battleship.new
     @starting_ammunition = @battleship.ammunition
   end
@@ -35,10 +36,21 @@ class TestBattleship< MiniTest::Unit::TestCase
   end
 
   def test_can_request_more_ammunition
+    @mock_battleship.expect :reload!, nil
+    @mock_battleship.reload!
+    @mock_battleship.verify
+  end
+
+  def test_can_receive_more_ammunition
     extra_ammunition = 10
-    @battleship.more_ammo!(extra_ammunition)
+    @battleship.reload!(extra_ammunition)
     assert_equal (@starting_ammunition + extra_ammunition), @battleship.ammunition
   end
+
+    def test_skip_to_my_loo
+      skip("reason for skipping the test")
+  end
+
 end
 
 describe Battleship do
