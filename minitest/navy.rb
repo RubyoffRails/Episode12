@@ -8,10 +8,9 @@ class Admiral
   end
 
   def has_a_ship?
-    true
+    @battleship.max_hits > 0
   end
 end
-
 
 module Fate
   class Fate
@@ -24,14 +23,19 @@ end
 
 class Battleship
   include Fate
-  attr_accessor :ammunition
+
+  INITIAL_AMMUNITION = 10
+  MAX_HITS = 10
+
+  attr_accessor :ammunition, :max_hits
+
   def initialize
-    @ammunition = 10
-    @hit = false
+    @ammunition = INITIAL_AMMUNITION
+    @max_hits = MAX_HITS
   end
 
   def fire!
-    @hit = Fate.new.hit_or_miss
+    @max_hits = @max_hits - 1 if Fate.new.hit_or_miss
     @ammunition = @ammunition - 1
   end
 
