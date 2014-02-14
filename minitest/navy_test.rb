@@ -18,7 +18,7 @@ class TestAdmiral < MiniTest::Unit::TestCase
   end
 
   def test_have_a_battleship
-    assert_equal true, @another_admiral.has_a_ship?
+    assert_equal true, @another_admiral.battleship.max_hits > 0
   end
 end
 

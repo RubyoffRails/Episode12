@@ -1,4 +1,5 @@
 class Admiral
+  attr_reader :battleship
   def initialize(battleship)
     @battleship = battleship
   end
@@ -7,9 +8,9 @@ class Admiral
     @battleship.fire!
   end
 
-  def has_a_ship?
-    @battleship.max_hits > 0
-  end
+  #def has_a_ship?
+    #@battleship.max_hits > 0
+  #end
 end
 
 module Fate
