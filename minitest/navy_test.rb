@@ -32,4 +32,16 @@ describe Battleship do
     battleship.fire!
     battleship.ammunition.must_equal (starting_ammunition -1)
   end
+  it "should have starting ammo of 10" do
+    battleship = Battleship.new
+    battleship.ammunition.must_equal (10)
+  end
+end
+
+describe Admiral do
+  it "should have a battleship" do
+    battleship = Battleship.new
+    admiral = Admiral.new(battleship)
+    assert (true), admiral.battleship
+  end
 end
