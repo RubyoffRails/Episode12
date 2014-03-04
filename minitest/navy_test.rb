@@ -16,12 +16,27 @@ class TestAdmiral < MiniTest::Unit::TestCase
   end
 end
 
-class TestBattleship< MiniTest::Unit::TestCase
+class TestAdmiral < MiniTest::Unit::TestCase
+  
+  def test_has_a_battleship
+    @battleship = Battleship.new
+    @admiral = Admiral.new(@battleship)
+    assert_equal (@admiral.battleship), @battleship 
+  end
+
+end
+
+class TestBattleship < MiniTest::Unit::TestCase
   def test_will_decrease_ammunition_when_firing
     battleship = Battleship.new
     starting_ammunition = battleship.ammunition
     battleship.fire!
     assert_equal (starting_ammunition - 1), battleship.ammunition
+  end
+
+  def test_starting_ammo_at_10
+    battleship = Battleship.new
+    assert_equal (10), battleship.ammunition
   end
 end
 
