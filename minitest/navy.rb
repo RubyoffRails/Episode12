@@ -20,4 +20,8 @@ class Battleship
   def fire!
     @ammunition = @ammunition - 1
   end
+
+  def get_ammo!
+    @ammunition = @ammunition + 10
+  end
 end

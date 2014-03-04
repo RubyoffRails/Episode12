@@ -47,4 +47,12 @@ describe Battleship do
     battleship.fire!
     battleship.ammunition.must_equal (starting_ammunition -1)
   end
+
+  it "should be able to request ammo" do
+    battleship = Battleship.new
+    starting_ammunition = battleship.ammunition
+    battleship.get_ammo!
+    battleship.ammunition.must_equal (starting_ammunition + 10)
+  end
+
 end

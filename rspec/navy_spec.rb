@@ -17,4 +17,10 @@ describe Battleship do
       subject.fire!
     }.to change(subject, :ammunition).by(-1)
   end
+
+  it "receives ammunition upon request" do
+    expect {
+      subject.get_ammo!
+    }.to change(subject, :ammunition).by(10)
+  end
 end
