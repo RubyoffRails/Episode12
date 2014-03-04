@@ -42,6 +42,6 @@ describe Admiral do
   it "should have a battleship" do
     battleship = Battleship.new
     admiral = Admiral.new(battleship)
-    assert (true), admiral.battleship
+    assert_equal (battleship), admiral.battleship
   end
 end
