@@ -1,4 +1,6 @@
 class Admiral
+  attr_reader :battleship
+
   def initialize(battleship)
     @battleship = battleship
   end
@@ -12,10 +14,14 @@ end
 class Battleship
   attr_reader :ammunition
   def initialize
-    @ammunition = 100
+    @ammunition = 10
   end
 
   def fire!
     @ammunition = @ammunition - 1
+  end
+
+  def get_ammo!
+    @ammunition = @ammunition + 10
   end
 end

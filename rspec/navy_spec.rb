@@ -17,4 +17,16 @@ describe Battleship do
       subject.fire!
     }.to change(subject, :ammunition).by(-1)
   end
+
+  it "receives ammunition upon request" do
+    expect {
+      subject.get_ammo!
+    }.to change(subject, :ammunition).by(10)
+  end
+
+  it "receives a 'hit' or 'miss' after calling fire!" do
+    subject.fire!.should eq("hit" || "miss")
+    # The following syntax does not work, and I'm not sure why.
+    # expect { subject.fire! }.to eq("hit")
+  end
 end
