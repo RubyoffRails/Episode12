@@ -17,9 +17,15 @@ class Battleship
 
   def fire!
     @ammunition = @ammunition - 1
+    hit_or_miss
   end
 
   def get_ammo!
     @ammunition = @ammunition + 10
   end
+
+  def hit_or_miss
+    ["hit", "miss"].sample 
+  end
+
 end
