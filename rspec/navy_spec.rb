@@ -25,7 +25,7 @@ describe Battleship do
   end
 
   it "receives a 'hit' or 'miss' after calling fire!" do
-    subject.fire!.should eq("hit") || subject.fire!.should eq("miss")
+    subject.fire!.should eq("hit" || "miss")
     # The following syntax does not work, and I'm not sure why.
     # expect { subject.fire! }.to eq("hit")
   end
